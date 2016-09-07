@@ -52,7 +52,7 @@ gulp.task('test-browser', ['dist'], function () {
 });
 
 gulp.task('dist-lib', function() {
-    return browserify('./index.js', { standalone: 'bridge'})
+    return browserify('./index.js', { standalone: 'tableMasterParser'})
         .transform(babel, {presets: ['es2015']})
         .ignore('fs')
         .ignore('stream')
