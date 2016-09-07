@@ -21,7 +21,8 @@
     "inter-program communication"
   ],
   "dependencies": {
-   },
+    "ll.js": "^1.0.2"
+  },
   "devDependencies": {
     "browserify": "^9.0.8",
     "glob": "^7.0.6",
@@ -36,7 +37,7 @@
     "jshint-stylish": "^2.2.0",
     "mocha": "*",
     "semantic-release": "^4.3.5",
-    "should": "^4.0.4",
+    "should": "^4.6.5",
     "validate-commit-msg": "^2.6.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
