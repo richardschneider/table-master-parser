@@ -11,6 +11,7 @@ var source = require('vinyl-source-stream');
 var buffer = require('vinyl-buffer');
 var glob = require('glob');
 var mochaPhantomJS = require('gulp-mocha-phantomjs');
+var babel = require('babelify');
 
 var DEBUG = process.env.NODE_ENV === 'debug',
     CI = process.env.CI === 'true';
@@ -52,6 +53,7 @@ gulp.task('test-browser', ['dist'], function () {
 
 gulp.task('dist-lib', function() {
     return browserify('./index.js', { standalone: 'bridge'})
+        .transform(babel, {presets: ['es2015']})
         .ignore('fs')
         .ignore('stream')
         .bundle()
@@ -70,6 +72,7 @@ gulp.task('dist-test', function (cb) {
         b.add(file);
     });
     b
+        .transform(babel, {presets: ['es2015']})
         .ignore('fs')
         .ignore('stream')
         .bundle()
