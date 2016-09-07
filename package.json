@@ -1,0 +1,53 @@
+{
+  "name": "table-master-parser",
+  "description": "Parse a Table Master message",
+  "homepage": "https://github.com/richardschneider/table-master-parser",
+  "bugs": "https://github.com/richardschneider/table-master-parser/issues",
+  "license": "MIT",
+  "main": "index.js",
+  "author": {
+    "name": "Richard Schneider",
+    "email": "makaretu@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/richardschneider/table-master-parser"
+  },
+  "keywords": [
+    "bridge",
+    "parser",
+    "computer",
+    "duplicate",
+    "inter-program communication"
+  ],
+  "dependencies": {
+   },
+  "devDependencies": {
+    "browserify": "^9.0.8",
+    "glob": "^7.0.6",
+    "gulp": "^3.9.1",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-jshint": "^2.0.1",
+    "gulp-mocha-phantomjs": "^0.11.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-spawn-mocha": "^2.2.2",
+    "gulp-uglify": "^2.0.0",
+    "jshint": "^2.9.2",
+    "jshint-stylish": "^2.2.0",
+    "mocha": "*",
+    "semantic-release": "^4.3.5",
+    "should": "^4.0.4",
+    "validate-commit-msg": "^2.6.1",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0"
+  },
+  "config": {
+    "ghooks": {
+      "commit-msg": "validate-commit-msg"
+    }
+  },
+  "scripts": {
+    "test": "gulp test",
+    "#semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  }
+}
