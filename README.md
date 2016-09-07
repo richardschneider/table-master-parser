@@ -11,7 +11,7 @@ the help of [semantic-release](https://github.com/semantic-release/semantic-rele
 
 ## Getting started
 
-**table-master-parser** is available for both node.js and most modern browsers.  If you want to know if your currremt browser is compatible, run the [online test suite](https://unpkg.com/table-master-parser/test/index.html).
+**table-master-parser** is available for [Node.js](https://nodejs.org) and most modern browsers.  If you want to know if your currremt browser is compatible, run the [online test suite](https://unpkg.com/table-master-parser/test/index.html).
 
 Install with [npm](http://blog.npmjs.org/post/85484771375/how-to-install-npm)
 
@@ -22,6 +22,17 @@ Install with [npm](http://blog.npmjs.org/post/85484771375/how-to-install-npm)
 Include the package
 
     var tm = require('table-master-parser')
+    
+Parse a message
+
+    tm.parser('South plays AS', (e, m) => console.log(m)))
+    
+Produces
+
+    {   kind: 'play', 
+        card: 'AS',
+        seat: 'S'
+    }
 
 ### Browser
 
