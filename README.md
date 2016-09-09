@@ -25,7 +25,7 @@ Include the package
     
 Parse a message
 
-    tm.parser('South plays AS', (e, m) => console.log(m)))
+    tm.parse('South plays AS', (e, m) => console.log(m)))
     
 Produces
 
