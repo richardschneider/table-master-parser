@@ -51,6 +51,11 @@ gulp.task('test-browser', ['dist'], function () {
         .pipe(mochaPhantomJS({reporter: 'min'}));
 });
 
+gulp.task('docs',  function(cb) {
+    require('./doc/make').run();
+    cb();
+});
+
 gulp.task('dist-lib', function() {
     return browserify('./index.js', { standalone: 'tableMasterParser'})
         .transform(babel, {presets: ['es2015']})
@@ -92,6 +97,6 @@ gulp.task('coverage', function () {
 });
 
 gulp.task('test',    ['lint', 'istanbul']);
-gulp.task('dist',    ['dist-lib', 'dist-test']);
+gulp.task('dist',    ['docs', 'dist-lib', 'dist-test']);
 gulp.task('ci',      ['test', 'test-browser', 'dist']);
 gulp.task('default', ['test']);
