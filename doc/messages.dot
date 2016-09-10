@@ -2,29 +2,65 @@
 <html>
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
   <title>Messages</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
 
+<div class="container">
+  <div class="row">
 
-{{~it.messages :m:index}}
-<div><a href="#{{=m.name}}-msg">{{=m.name}}</a></div>
-{{~}}
+    <div class="col-sm-8">
+        <h1>Table Master</h1>
+        <p class="lead">
+        The <a href="http://www.bluechipbridge.co.uk/protocol.htm">Table Master protocol</a> allows bridge 
+        programs to communicate with each other in order to play bridge. ASCII messages (terminated with a CRLF) 
+        are exchanged over TCP/IP.  
+        </p>
+        <p>
+        The <a href="https://github.com/richardschneider/table-master-parser">table-master-parser</a> 
+        package parses these nessages and produces a javascript object representation commonly called an 
+        <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Systax Tree</a>().
+        </p>
+        
+        {{~it.messages :m:index}}
+        <div class="message" id="{{=m.name}}-msg">
+            <h3>{{=m.name}} <small>message</small></h3>
+            <hr/>
+            <p>This message ...</p>
+            <p></p>
 
-{{~it.messages :m:index}}
-<h3 id="{{=m.name}}-msg"> {{=m.name}} Message</h3>
-<p>...</p>
+            <h4>Definition</h4>
+            ...
 
-<h4>Definition</h4>
-...
+            <h4>Example</h4>
+            <div><samp><pre>{{=m.example}}</pre></samp></div>
+            <p>produces the AST</p>
+            <div><samp><pre>{{=m.ast}}</pre></samp></div>
+        </div> <!-- message -->
+        {{~}}
+    </div>
 
-<h4>Example</h4>
-<code>{{=m.example}}</code>
-
-<h4>Syntax Tree</h4>
-<code><pre>{{=m.ast}}</pre></code>
-
-{{~}}
-
+    <div class="col-sm-3 col-sm-offset-1">
+        <h4>Messages</h4>
+        <ol class="list-unstyled">
+            {{~it.messages :m:index}}
+            <li><a href="#{{=m.name}}-msg">{{=m.name}}</a></li>
+            {{~}}
+        </ol>
+    </div>
+    
+  </div> <!-- row --->    
+</div> <!-- container -->
 </body>
 </html>

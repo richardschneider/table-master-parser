@@ -6,6 +6,8 @@
 
 The [Table Master protocol](http://www.bluechipbridge.co.uk/protocol.htm) allows bridge programs to communicate with each other in order to play bridge. ASCII messages (terminated with a CRLF) are exchanged over TCP/IP.  This package parses the ASCII message and produces a javascript object representation commonly called an [AST or *Abstract Syntax Tree*](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
+[Documentation](https://unpkg.com/table-master-parser/dist/doc/index.html) on each message is automatically produced by 
+this package.
 The [change log](https://github.com/richardschneider/table-master-parser/releases) is automatically produced with
 the help of [semantic-release](https://github.com/semantic-release/semantic-release).
 
