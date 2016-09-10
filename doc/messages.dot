@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   
   <title>Messages</title>
+  
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -14,6 +15,13 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <style>
+    code {
+       font-size: medium !important;
+    }
+  </style>
+
 </head>
 <body>
 
@@ -29,8 +37,8 @@
         </p>
         <p>
         The <a href="https://github.com/richardschneider/table-master-parser">table-master-parser</a> 
-        package parses these nessages and produces a javascript object representation commonly called an 
-        <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Systax Tree</a>().
+        package parses these nessages and produces an 
+        <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a>.
         </p>
         
         {{~it.messages :m:index}}
@@ -44,9 +52,9 @@
             ...
 
             <h4>Example</h4>
-            <div><samp><pre>{{=m.example}}</pre></samp></div>
+            <div><pre><code>{{=m.example}}</code></pre></div>
             <p>produces the AST</p>
-            <div><samp><pre>{{=m.ast}}</pre></samp></div>
+            <div><pre><code>{{=m.ast}}</code></code></div>
         </div> <!-- message -->
         {{~}}
     </div>
