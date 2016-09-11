@@ -20,10 +20,14 @@ function termHtml(term) {
         return ` <span class="number">#</span>`;
     }
     else if('sequence' in term) {
-        return term.sequence.reduce((html, t) => html += termHtml(t), ' ');
+        return term.sequence.reduce((html, t) => html += termHtml(t), '');
     }
     else if('either' in term) {
-        return term.either.reduce((html, t) => html += termHtml(t) + ' |', ' ');
+        return term.either.reduce((html, t, i, either) => {
+            var trailer = (i === either.length -1) ? '' : ' |';
+            html += termHtml(t) + trailer;
+            return html;
+        }, ' ');
     }
 }
 
