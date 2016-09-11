@@ -19,6 +19,9 @@ function termHtml(term) {
     else if('number' in term) {
         return ` <span class="number">#</span>`;
     }
+    else if('string' in term) {
+        return ` <var class="string">quoted-string</var>`;
+    }
     else if('sequence' in term) {
         return term.sequence.reduce((html, t) => html += termHtml(t), '');
     }
