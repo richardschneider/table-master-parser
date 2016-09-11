@@ -45,11 +45,9 @@
         <div class="message" id="{{=m.name}}-msg">
             <h3>{{=m.name}} <small>message</small></h3>
             <hr/>
-            <p>This message ...</p>
-            <p></p>
-
-            <h4>Definition</h4>
-            ...
+            <p{{=m.description}}</p>
+            
+            <div><pre><code>{{=m.definition}}</code></pre></div>
 
             <h4>Example</h4>
             <div><pre><code>{{=m.example}}</code></pre></div>
