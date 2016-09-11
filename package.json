@@ -21,7 +21,7 @@
     "inter-program communication"
   ],
   "dependencies": {
-    "ll.js": "git://github.com/richardschneider/ll.js.git#example"
+    "ll.js": "git://github.com/richardschneider/ll.js.git#all-prs"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.14.0",

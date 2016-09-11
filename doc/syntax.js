@@ -22,6 +22,10 @@ function termHtml(term) {
     else if('string' in term) {
         return ` <var class="string">quoted-string</var>`;
     }
+    else if('regex' in term) {
+        return ` <code class="regex">${term.regex.toString()}</code>`;
+
+    }
     else if('sequence' in term) {
         return term.sequence.reduce((html, t) => html += termHtml(t), '');
     }
@@ -30,7 +34,7 @@ function termHtml(term) {
             var trailer = (i === either.length -1) ? '' : ' |';
             html += termHtml(t) + trailer;
             return html;
-        }, ' ');
+        }, '');
     }
 }
 
