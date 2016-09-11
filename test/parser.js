@@ -35,6 +35,16 @@ describe('Parser', () => {
             });
         });
 
+        it('should have specific properties of the bid message', done => {
+            let msg = 'east bids 3NT';
+            tm.parse(msg, (err, ast) => {
+                ast.should.have.property('kind', 'bid');
+                ast.should.have.property('seat', 'E');
+                ast.should.have.property('bid', '3NT');
+                done();
+            });
+        });
+
     });
 
 });
