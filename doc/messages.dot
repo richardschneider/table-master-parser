@@ -18,7 +18,10 @@
 
   <style>
     code {
-       font-size: medium !important;
+        font-size: medium !important;
+    }
+    .keyword {
+        font-weight: 600;
     }
   </style>
 
