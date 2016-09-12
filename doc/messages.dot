@@ -67,6 +67,13 @@
             <li><a href="#{{=m.name}}-msg">{{=m.name}}</a></li>
             {{~}}
         </ol>
+        <h4>Resources</h4>
+        <ol class="list-unstyled">
+            <li><a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge</a></li>
+            <li><a href="https://bridge-robots.com/">Bridge Robots</a></li>
+            <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride<a></li>
+            <li><a href="https://github.com/richardschneider/table-master-parser">Message parser</a></li>
+        </ol>
     </div>
     
   </div> <!-- row --->    
