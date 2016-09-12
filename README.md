@@ -2,7 +2,7 @@
 
 [![Travis build status](https://travis-ci.org/richardschneider/table-master-parser.svg)](https://travis-ci.org/richardschneider/table-master-parser)
 [![Coverage Status](https://coveralls.io/repos/github/richardschneider/table-master-parser/badge.svg?branch=master)](https://coveralls.io/github/richardschneider/table-master-parser?branch=master)
-[![npm version](https://badge.fury.io/js/table-master-parser.js.svg)](https://badge.fury.io/js/table-master-parser.js) 
+[![npm version](https://badge.fury.io/js/table-master-parser.svg)](https://badge.fury.io/js/table-master-parser) 
 
 The [Table Master protocol](http://www.bluechipbridge.co.uk/protocol.htm) allows bridge programs to communicate with each other in order to play bridge. ASCII messages (terminated with a CRLF) are exchanged over TCP/IP.  This package parses the ASCII message and produces a javascript object representation commonly called an [AST or *Abstract Syntax Tree*](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
