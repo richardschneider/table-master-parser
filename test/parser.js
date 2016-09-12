@@ -45,6 +45,21 @@ describe('Parser', () => {
             });
         });
 
+        it('should have specific properties of the cards message', done => {
+            let msg = "north's cards : S AKJ43. H -. D 6543. C QJT9.";
+            tm.parse(msg, (err, ast) => {
+                if(err) {
+                    done(err);
+                }
+                ast.should.have.property('kind', 'cards');
+                ast.should.have.property('seat', 'N');
+                ast.should.have.property('cards').and.length(13);
+                done();
+            });
+        });
+
+
+
     });
 
 });
