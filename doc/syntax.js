@@ -5,10 +5,10 @@ let tm = require('../index'),
 
 function termHtml(term) {
     if('optionally' in term) {
-        return ' [' + termHtml(term.optionally) + ']';
+        return ' [' + termHtml(term.optionally).trim() + ']';
     }
     else if('repeating' in term) {
-        return ' (' + termHtml(term.repeating) + ']) ...';
+        return ' (' + termHtml(term.repeating).trim() + ')...';
     }
     else if('keyword' in term) {
         return ` <span class="keyword">${term.keyword}</span>`;
