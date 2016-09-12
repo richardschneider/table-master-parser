@@ -58,7 +58,19 @@ describe('Parser', () => {
             });
         });
 
-
+        it('should have specific properties of the alterable bid message', done => {
+            let msg = "north bids 1NT Alert. 12 to 14 total points";
+            tm.parse(msg, (err, ast) => {
+                if(err) {
+                    done(err);
+                }
+                ast.should.have.property('kind', 'bid');
+                ast.should.have.property('seat', 'N');
+                ast.should.have.property('bid', '1NT');
+                ast.should.have.property('alert', '12 to 14 total points');
+                done();
+            });
+        });
 
     });
 
