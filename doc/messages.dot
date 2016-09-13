@@ -34,7 +34,7 @@
     <div class="col-sm-8">
         <h1>Table Master</h1>
         <p class="lead">
-        The <a href="http://www.bluechipbridge.co.uk/protocol.htm">Table Master protocol</a> allows bridge 
+        The <a href="http://www.bluechipbridge.co.uk/protocol.htm">Table Master protocol</a> (as defined by Blue Chip Bridge) allows bridge 
         programs to communicate with each other in order to play bridge. ASCII messages (terminated with a CRLF) 
         are exchanged over TCP/IP.  
         </p>

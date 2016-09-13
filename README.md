@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/richardschneider/table-master-parser/badge.svg?branch=master)](https://coveralls.io/github/richardschneider/table-master-parser?branch=master)
 [![npm version](https://badge.fury.io/js/table-master-parser.svg)](https://badge.fury.io/js/table-master-parser) 
 
-The [Table Master protocol](http://www.bluechipbridge.co.uk/protocol.htm) allows bridge programs to communicate with each other in order to play bridge. ASCII messages (terminated with a CRLF) are exchanged over TCP/IP.  This package parses the ASCII message and produces a javascript object representation commonly called an [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST).
+The [Table Master protocol](http://www.bluechipbridge.co.uk/protocol.htm), as defined by Blue Chip Bridge, allows bridge programs to communicate with each other in order to play bridge. ASCII messages (terminated with a CRLF) are exchanged over TCP/IP.  This package parses the ASCII message and produces a javascript object representation commonly called an [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST).
 
 Use the [online parser](https://unpkg.com/table-master-parser/dist/doc/parser.html) to see the results of parsing a message.
 
