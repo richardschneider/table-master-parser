@@ -21,7 +21,7 @@
     "inter-program communication"
   ],
   "dependencies": {
-    "ll.js": "git://github.com/richardschneider/ll.js.git#all-prs"
+    "ll.js": "^1.0.3"
   },
   "devDependencies": {
     "babel-polyfill": "^6.13.0",
