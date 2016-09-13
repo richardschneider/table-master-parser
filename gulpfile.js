@@ -18,7 +18,8 @@ var DEBUG = process.env.NODE_ENV === 'debug',
 
 var paths = {
     test: ['./test/**/*.js', '!test/{temp,temp/**}'],
-    source: ['./lib/*.js', './bin/*']
+    source: ['./lib/*.js', './bin/*'],
+    doc: ['./doc/*.html', './doc/*.css']
 };
 paths.lint = paths.source.concat(paths.test);
 
@@ -51,9 +52,10 @@ gulp.task('test-browser', ['dist'], function () {
         .pipe(mochaPhantomJS({reporter: 'min'}));
 });
 
-gulp.task('docs',  function(cb) {
-    require('./doc/make').run();
-    cb();
+gulp.task('docs', function() {
+    require('./doc/make').run();    // dynamic documentation
+    return gulp.src(paths.doc)      // static documentation
+        .pipe(gulp.dest('./dist/doc'));
 });
 
 gulp.task('dist-lib', function() {

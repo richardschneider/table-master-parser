@@ -41,5 +41,6 @@ messages = messages.map(name => {
 
 module.exports.run = function run() {
     save('index', render.messages({ messages: messages }));
+    save('parser', render.parser({ messages: messages }));
 };
 

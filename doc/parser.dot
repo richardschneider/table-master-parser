@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Parser for table master message</title>
+  
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <style>
+  </style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-8">
+        <h3>Online parser</h1>
+        <p >
+        See the AST generated from a Table Master <a href="index.html">message</a>.
+        </p>
+        <form>
+            <div class="input-group">             
+                <input type="text" class="form-control" id="message" placeholder="north bids 1NT" autocomplete="off">
+                <div class="input-group-btn"> 
+                    <div class="btn-group">
+                        <button type=button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button> 
+                        <ul class="dropdown-menu">
+                            {{~it.messages :m:index}}
+                            <li><a href="#" onclick='showMessage("{{=m.name}}")'>{{=m.name}}</a></li>
+                            {{~}}
+                        </ul>
+                    </div>
+                    <button id="parse" type=button class="btn btn-default">Parse</button>
+                </div> 
+            </div>
+            <div id="error" class="alert alert-warning help-block hidden" role="alert">
+                <strong>Failed!</strong> <span id="error-message"></span>
+            </div>
+        </form>
+
+        <div id="ast" class="help-block hidden">
+            <h4>AST</h4>
+            <pre><code id="json">&nbsp;</code></pre>
+        </div>
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-1">
+        <h4>Resources</h4>
+        <ol class="list-unstyled">
+            <li><a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge</a></li>
+            <li><a href="https://bridge-robots.com/">Bridge Robots</a></li>
+            <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride<a></li>
+            <li><a href="https://github.com/richardschneider/table-master-parser">Message parser</a></li>
+        </ol>
+    </div>
+    
+  </div> <!-- row --->    
+</div> <!-- container -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/table-master-parser/dist/table-master-parser.min.js"></script>
+
+<script>
+    var mdef = {};
+    $(document).ready(function() {
+        $('#parse').click(onParse);
+        $('#message').keypress(function(e) {
+            if(e.which == 13) {
+                e.preventDefault();
+                $('#parse').click();
+            }
+        });
+        {{~it.messages :m:index}}
+            mdef['{{=m.name}}'] = {
+                example: htmlDecode('{{!m.example}}')
+            };
+        {{~}}
+    });
+
+    function htmlDecode(value) {
+        return $("<textarea/>").html(value).text();
+    }
+
+    function onParse() {
+        tableMasterParser.parse($('#message').val(), function (e, ast) {
+            if (e) {
+                $('#error-message').text(e.message);
+                $('#error').removeClass('hidden');
+                $('#ast').addClass('hidden');
+                return;
+            }
+            $('#error').addClass('hidden');
+            $('#ast').removeClass('hidden');
+            $('#json').text(JSON.stringify(ast, null, 3));    
+        });
+    }
+    
+    function showMessage(name) {
+        $('#message').val(mdef[name].example);
+        $('#parse').click();
+    }
+</script>
+
+</body>
+</html>
