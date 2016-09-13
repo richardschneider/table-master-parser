@@ -34,7 +34,7 @@
     <div class="col-sm-8">
         <h1>Table Master</h1>
         <p class="lead">
-        The <a href="http://www.bluechipbridge.co.uk/protocol.htm">Table Master protocol</a> (as defined by Blue Chip Bridge) allows bridge 
+        The <a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge Table Manager Protocol</a> allows bridge 
         programs to communicate with each other in order to play bridge. ASCII messages (terminated with a CRLF) 
         are exchanged over TCP/IP.  
         </p>
@@ -74,6 +74,7 @@
             <li><a href="https://bridge-robots.com/">Bridge Robots</a></li>
             <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride<a></li>
             <li><a href="https://github.com/richardschneider/table-master-parser">Message parser</a></li>
+            <li><a href='./parser.html'>Online parser</a></li>
         </ol>
     </div>
     
