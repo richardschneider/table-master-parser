@@ -60,8 +60,9 @@
         <ol class="list-unstyled">
             <li><a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge</a></li>
             <li><a href="https://bridge-robots.com/">Bridge Robots</a></li>
+            <li><a href="./index.html">Message documentation<a></li>
             <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride<a></li>
-            <li><a href="https://github.com/richardschneider/table-master-parser">Message parser</a></li>
+            <li><a href="https://github.com/richardschneider/table-master-parser">This package</a></li>
         </ol>
     </div>
     

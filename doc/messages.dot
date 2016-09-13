@@ -40,8 +40,9 @@
         </p>
         <p>
         The <a href="https://github.com/richardschneider/table-master-parser">table-master-parser</a> 
-        package parses these nessages and produces an 
+        package parses these messages and produces an 
         <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a>.
+        Use the <a href='./parser.html'>online parser</a> to see the results of parsing a message.
         </p>
         
         {{~it.messages :m:index}}
