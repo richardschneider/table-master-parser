@@ -29,7 +29,7 @@
         </p>
         <form>
             <div class="input-group">             
-                <input type="text" class="form-control" id="message" placeholder="north bids 1NT" autocomplete="off">
+                <input type="text" class="form-control" id="message" value="north bids 1NT" autocomplete="off">
                 <div class="input-group-btn"> 
                     <div class="btn-group">
                         <button type=button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
