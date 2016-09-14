@@ -1,5 +1,7 @@
 'use strict';
 
-require('babel-polyfill');
+if (typeof window !== 'undefined') {
+    require('babel-polyfill');
+}
 
 module.exports = require('./lib/parser');
