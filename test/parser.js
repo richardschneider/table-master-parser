@@ -46,7 +46,7 @@ describe('Parser', () => {
         });
 
         it('should have specific properties of the cards message', done => {
-            let msg = "north's cards : S AKJ43. H -. D 6543. C QJT9.";
+            let msg = "north's cards : S A K J 4 3. H -. D 6 5 4 3. C Q J T 9.";
             tm.parse(msg, (err, ast) => {
                 if(err) {
                     done(err);
