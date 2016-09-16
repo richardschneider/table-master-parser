@@ -72,6 +72,19 @@ describe('Parser', () => {
             });
         });
 
+        it('should have specific properties of the seated message', done => {
+            let msg = 'west "..." seated';
+            tm.parse(msg, (err, ast) => {
+                if(err) {
+                    done(err);
+                }
+                ast.should.have.property('kind', 'seated');
+                ast.should.have.property('seat', 'W');
+                ast.should.have.property('teamName', '...');
+                done();
+            });
+        });
+
     });
 
 });
