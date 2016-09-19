@@ -85,6 +85,21 @@ describe('Parser', () => {
             });
         });
 
+        it('should have specific properties of the timing message', done => {
+            let msg = 'Timing - N/S : this board  00:05,  total  0:00:33.  E/W : this board  00:08,  total  0:00:29';
+            tm.parse(msg, (err, ast) => {
+                if(err) {
+                    done(err);
+                }
+                ast.should.have.property('kind', 'endOfBoard');
+                ast.should.have.property('ewBoardTime', '00:08');
+                ast.should.have.property('ewTotalTime', '0:00:29');
+                ast.should.have.property('nsBoardTime', '00:05');
+                ast.should.have.property('nsTotalTime', '0:00:33');
+                done();
+            });
+        });
+
     });
 
 });
