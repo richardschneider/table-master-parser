@@ -61,8 +61,6 @@ gulp.task('docs', function() {
 gulp.task('dist-lib', function() {
     return browserify('./index.js', { standalone: 'tableMasterParser'})
         .transform(babel, {presets: ['es2015']})
-        .ignore('fs')
-        .ignore('stream')
         .bundle()
         .pipe(source('table-master-parser.js'))
         .pipe(gulp.dest('./dist/'))
@@ -80,8 +78,6 @@ gulp.task('dist-test', function (cb) {
     });
     b
         .transform(babel, {presets: ['es2015']})
-        .ignore('fs')
-        .ignore('stream')
         .bundle()
         .pipe(source('table-master-parser.spec.js'))
         .pipe(gulp.dest('./dist'))
