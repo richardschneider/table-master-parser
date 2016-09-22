@@ -19,6 +19,7 @@
   <style>
     code {
         font-size: medium !important;
+        word-break: break-word;
     }
     .keyword {
         font-weight: 600;
