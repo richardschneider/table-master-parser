@@ -8,9 +8,9 @@ The [Blue Chip Bridge Table Manager Protocol](http://www.bluechipbridge.co.uk/pr
 
 This package parses the ASCII message and produces a javascript object representation commonly called an [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree) (AST).
 
-Use the [online parser](https://unpkg.com/table-master-parser/dist/doc/parser.html) to see the results of parsing a message.
+Use the [online parser](https://richardschneider.github.io/table-master-parser/parser.html) to see the results of parsing a message.
 
-[Documentation](https://unpkg.com/table-master-parser/dist/doc/index.html) on each message is automatically produced by 
+[Documentation](https://richardschneider.github.io/table-master-parser/index.html) on each message is automatically produced by 
 this package.
 The [change log](https://github.com/richardschneider/table-master-parser/releases) is automatically produced with
 the help of [semantic-release](https://github.com/semantic-release/semantic-release).
