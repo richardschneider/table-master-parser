@@ -80,6 +80,6 @@
   "scripts": {
     "test": "gulp test",
     "deploy-site": "deploy-to-git",
-    "semantic-release": "semantic-release pre && npm deploy-site && npm publish && semantic-release post"
+    "semantic-release": "semantic-release pre && npm run deploy-site && npm publish && semantic-release post"
   }
 }
