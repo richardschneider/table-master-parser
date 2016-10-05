@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Parser for table master message</title>
+  
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+  <style>
+  </style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-8">
+        <h3>Online parser</h1>
+        <p >
+        See the AST generated from a Blue Chip Bridge Table Manager Protocol <a href="index.html">message</a>.
+        </p>
+        <form>
+            <div class="input-group">             
+                <input type="text" class="form-control" id="message" value="north bids 1NT" autocomplete="off">
+                <div class="input-group-btn"> 
+                    <div class="btn-group">
+                        <button type=button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-question-sign"></span>
+                        </button> 
+                        <ul class="dropdown-menu">
+                            
+                            <li><a href="#" onclick='showMessage("bid")'>bid</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("cards")'>cards</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("connect")'>connect</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("deal")'>deal</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("dummyCards")'>dummyCards</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("dummyLead")'>dummyLead</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("endOfBoard")'>endOfBoard</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("endOfSession")'>endOfSession</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("illegalBid")'>illegalBid</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("lead")'>lead</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("play")'>play</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("readyForBid")'>readyForBid</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("readyForCard")'>readyForCard</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("readyForCards")'>readyForCards</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("readyForDeal")'>readyForDeal</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("readyForDummy")'>readyForDummy</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("readyForTeams")'>readyForTeams</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("readyToStart")'>readyToStart</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("seated")'>seated</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("startOfBoard")'>startOfBoard</a></li>
+                            
+                            <li><a href="#" onclick='showMessage("teams")'>teams</a></li>
+                            
+                        </ul>
+                    </div>
+                    <button id="parse" type=button class="btn btn-default">Parse</button>
+                </div> 
+            </div>
+            <div id="error" class="alert alert-warning help-block hidden" role="alert">
+                <strong>Failed!</strong> <span id="error-message"></span>
+            </div>
+        </form>
+
+        <div id="ast" class="help-block hidden">
+            <h4>AST</h4>
+            <pre><code id="json">&nbsp;</code></pre>
+        </div>
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-1">
+        <h4>Resources</h4>
+        <ol class="list-unstyled">
+            <li><a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge</a></li>
+            <li><a href="https://bridge-robots.com/">Bridge Robots</a></li>
+            <li><a href="./index.html">Message documentation<a></li>
+            <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride<a></li>
+            <li><a href="https://github.com/richardschneider/table-master-parser">This package</a></li>
+        </ol>
+    </div>
+    
+  </div> <!-- row --->    
+</div> <!-- container -->
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/table-master-parser/dist/table-master-parser.min.js"></script>
+
+<script>
+    var mdef = {};
+    $(document).ready(function() {
+        $('#parse').click(onParse);
+        $('#message').keypress(function(e) {
+            if(e.which == 13) {
+                e.preventDefault();
+                $('#parse').click();
+            }
+        });
+        
+            mdef['bid'] = {
+                example: htmlDecode('south bids 1NT Alert. 12 to 14 total points')
+            };
+        
+            mdef['cards'] = {
+                example: htmlDecode('north&#39;s cards : S A K J 4 3. H -. D 6 5 4 3. C Q J T 9.')
+            };
+        
+            mdef['connect'] = {
+                example: htmlDecode('connecting &#34;...&#34; as north using protocol version 18')
+            };
+        
+            mdef['deal'] = {
+                example: htmlDecode('board number 801 . dealer north . Neither vulnerable')
+            };
+        
+            mdef['dummyCards'] = {
+                example: htmlDecode('dummy&#39;s cards : S A K J 4 3. H -. D 6 5 4 3. C Q J T 9.')
+            };
+        
+            mdef['dummyLead'] = {
+                example: htmlDecode('dummy to lead')
+            };
+        
+            mdef['endOfBoard'] = {
+                example: htmlDecode('timing - N&#47;S : this board 3:30 , total 1:10:30 . E&#47;W : this board 3:30 , total 1:10:30')
+            };
+        
+            mdef['endOfSession'] = {
+                example: htmlDecode('end of session')
+            };
+        
+            mdef['illegalBid'] = {
+                example: htmlDecode('illegal bid')
+            };
+        
+            mdef['lead'] = {
+                example: htmlDecode('south to lead')
+            };
+        
+            mdef['play'] = {
+                example: htmlDecode('north plays KH')
+            };
+        
+            mdef['readyForBid'] = {
+                example: htmlDecode('north ready for north&#39;s bid')
+            };
+        
+            mdef['readyForCard'] = {
+                example: htmlDecode('south ready for east&#39;s card to trick 548')
+            };
+        
+            mdef['readyForCards'] = {
+                example: htmlDecode('north ready for cards')
+            };
+        
+            mdef['readyForDeal'] = {
+                example: htmlDecode('west ready for deal')
+            };
+        
+            mdef['readyForDummy'] = {
+                example: htmlDecode('west ready for dummy')
+            };
+        
+            mdef['readyForTeams'] = {
+                example: htmlDecode('east ready for teams')
+            };
+        
+            mdef['readyToStart'] = {
+                example: htmlDecode('west to start')
+            };
+        
+            mdef['seated'] = {
+                example: htmlDecode('north &#34;...&#34; seated')
+            };
+        
+            mdef['startOfBoard'] = {
+                example: htmlDecode('start of board')
+            };
+        
+            mdef['teams'] = {
+                example: htmlDecode('teams : N&#47;S : &#34;...&#34; E&#47;W : &#34;...&#34;')
+            };
+        
+    });
+
+    function htmlDecode(value) {
+        return $("<textarea/>").html(value).text();
+    }
+
+    function onParse() {
+        tableMasterParser.parse($('#message').val(), function (e, ast) {
+            if (e) {
+                $('#error-message').text(e.message);
+                $('#error').removeClass('hidden');
+                $('#ast').addClass('hidden');
+                return;
+            }
+            $('#error').addClass('hidden');
+            $('#ast').removeClass('hidden');
+            $('#json').text(JSON.stringify(ast, null, 3));    
+        });
+    }
+    
+    function showMessage(name) {
+        $('#message').val(mdef[name].example);
+        $('#parse').click();
+    }
+</script>
+
+</body>
+</html>

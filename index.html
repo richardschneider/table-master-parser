@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <title>Messages</title>
+  
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  <style>
+    code {
+        font-size: medium !important;
+        word-break: break-word;
+    }
+    .keyword {
+        font-weight: 600;
+    }
+  </style>
+
+</head>
+<body>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-sm-8">
+        <h1>Table Master</h1>
+        <p class="lead">
+        The <a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge Table Manager Protocol</a> allows bridge 
+        programs to communicate with each other in order to play bridge. ASCII messages (terminated with a CRLF) 
+        are exchanged over TCP/IP.  
+        </p>
+        <p>
+        The <a href="https://github.com/richardschneider/table-master-parser">table-master-parser</a> 
+        package parses these messages and produces an 
+        <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a>.
+        Use the <a href='./parser.html'>online parser</a> to see the results of parsing a message.
+        </p>
+        
+        
+        <div class="message" id="bid-msg">
+            <h3>bid <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>bid</var> := <var class="rule-name">seat</var> <var class="rule-name">call</var> [<span class="keyword">Alert.</span> <code class="regex">/.+/</code>]
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span>
+<var>call</var> := <span class="keyword">passes</span> | <span class="keyword">doubles</span> | <span class="keyword">redoubles</span> | <span class="keyword">bids</span> <code class="regex">/^[1-7]([SHDC]|NT)/</code></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>south bids 1NT Alert. 12 to 14 total points</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "bid",
+    "alert": "12 to 14 total points",
+    "bid": "1NT",
+    "seat": "S"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="cards-msg">
+            <h3>cards <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>cards</var> := <var class="rule-name">seat'</var> <span class="keyword">cards</span> <span class="keyword">:</span> <var class="rule-name">hand</var>
+<var>seat'</var> := <span class="keyword">north's</span> | <span class="keyword">south's</span> | <span class="keyword">east's</span> | <span class="keyword">west's</span>
+<var>hand</var> := (<var class="rule-name">someCards</var>)...
+<var>someCards</var> := <var class="rule-name">suit</var> <var class="rule-name">scards</var> <span class="keyword">.</span>
+<var>suit</var> := <span class="keyword">S</span> | <span class="keyword">H</span> | <span class="keyword">D</span> | <span class="keyword">C</span>
+<var>scards</var> := <span class="keyword">-</span> | <code class="regex">/^[AKQJT98765432 ]+/</code></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>north's cards : S A K J 4 3. H -. D 6 5 4 3. C Q J T 9.</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "cards",
+    "cards": [
+        "AS",
+        "KS",
+        "JS",
+        "4S",
+        "3S",
+        "6D",
+        "5D",
+        "4D",
+        "3D",
+        "QC",
+        "JC",
+        "TC",
+        "9C"
+    ],
+    "seat": "N"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="connect-msg">
+            <h3>connect <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>connect</var> := <span class="keyword">connecting</span> <var class="rule-name">teamName</var> <span class="keyword">as</span> <var class="rule-name">seat</var> <span class="keyword">using</span> <span class="keyword">protocol</span> <span class="keyword">version</span> <var class="rule-name">protocolVersion</var>
+<var>teamName</var> := <var class="string">quoted-string</var>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span>
+<var>protocolVersion</var> := <span class="number">#</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>connecting "..." as north using protocol version 18</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "connect",
+    "protocolVersion": 18,
+    "seat": "N",
+    "teamName": "..."
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="deal-msg">
+            <h3>deal <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>deal</var> := <span class="keyword">board</span> <span class="keyword">number</span> <span class="number">#</span> <span class="keyword">.</span> <span class="keyword">dealer</span> <var class="rule-name">seat</var> <span class="keyword">.</span> <var class="rule-name">vulnerable</var>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span>
+<var>vulnerable</var> := <span class="keyword">Neither vulnerable</span> | <span class="keyword">N/S vulnerable</span> | <span class="keyword">E/W vulnerable</span> | <span class="keyword">Both vulnerable</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>board number 801 . dealer north . Neither vulnerable</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "deal",
+    "vulnerable": "Nil",
+    "dealer": "N",
+    "board": 801
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="dummyCards-msg">
+            <h3>dummyCards <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>dummyCards</var> := <span class="keyword">dummy's</span> <span class="keyword">cards</span> <span class="keyword">:</span> <var class="rule-name">hand</var>
+<var>hand</var> := (<var class="rule-name">someCards</var>)...
+<var>someCards</var> := <var class="rule-name">suit</var> <var class="rule-name">scards</var> <span class="keyword">.</span>
+<var>suit</var> := <span class="keyword">S</span> | <span class="keyword">H</span> | <span class="keyword">D</span> | <span class="keyword">C</span>
+<var>scards</var> := <span class="keyword">-</span> | <code class="regex">/^[AKQJT98765432 ]+/</code></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>dummy's cards : S A K J 4 3. H -. D 6 5 4 3. C Q J T 9.</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "dummyCards",
+    "cards": [
+        "AS",
+        "KS",
+        "JS",
+        "4S",
+        "3S",
+        "6D",
+        "5D",
+        "4D",
+        "3D",
+        "QC",
+        "JC",
+        "TC",
+        "9C"
+    ]
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="dummyLead-msg">
+            <h3>dummyLead <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>dummyLead</var> := <span class="keyword">dummy</span> <span class="keyword">to</span> <span class="keyword">lead</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>dummy to lead</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "dummyLead"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="endOfBoard-msg">
+            <h3>endOfBoard <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>endOfBoard</var> := <span class="keyword">timing</span> <span class="keyword">-</span> <span class="keyword">N/S</span> <span class="keyword">:</span> <span class="keyword">this</span> <span class="keyword">board</span> <var class="rule-name">mmss</var> <span class="keyword">,</span> <span class="keyword">total</span> <var class="rule-name">hhmmss</var> <span class="keyword">.</span> <span class="keyword">E/W</span> <span class="keyword">:</span> <span class="keyword">this</span> <span class="keyword">board</span> <var class="rule-name">mmss</var> <span class="keyword">,</span> <span class="keyword">total</span> <var class="rule-name">hhmmss</var>
+<var>mmss</var> := <code class="regex">/^\d+\:\d+/</code>
+<var>hhmmss</var> := <code class="regex">/^\d+\:\d+\:\d+/</code></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>timing - N/S : this board 3:30 , total 1:10:30 . E/W : this board 3:30 , total 1:10:30</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "endOfBoard",
+    "ewTotalTime": "1:10:30",
+    "ewBoardTime": "3:30",
+    "nsTotalTime": "1:10:30",
+    "nsBoardTime": "3:30"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="endOfSession-msg">
+            <h3>endOfSession <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>endOfSession</var> := <span class="keyword">end</span> <span class="keyword">of</span> <span class="keyword">session</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>end of session</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "endOfSession"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="illegalBid-msg">
+            <h3>illegalBid <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>illegalBid</var> := <span class="keyword">illegal</span> <span class="keyword">bid</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>illegal bid</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "illegalBid"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="lead-msg">
+            <h3>lead <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>lead</var> := <var class="rule-name">seat</var> <span class="keyword">to</span> <span class="keyword">lead</span>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>south to lead</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "lead",
+    "seat": "S"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="play-msg">
+            <h3>play <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>play</var> := <var class="rule-name">seat</var> <span class="keyword">plays</span> <var class="rule-name">card</var>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span>
+<var>card</var> := <code class="regex">/^[AKQJT98765432][SHDC]/</code></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>north plays KH</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "play",
+    "card": "KH",
+    "seat": "N"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="readyForBid-msg">
+            <h3>readyForBid <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>readyForBid</var> := <var class="rule-name">seat</var> <span class="keyword">ready</span> <span class="keyword">for</span> <var class="rule-name">seat'</var> <span class="keyword">bid</span>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span>
+<var>seat'</var> := <span class="keyword">north's</span> | <span class="keyword">south's</span> | <span class="keyword">east's</span> | <span class="keyword">west's</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>north ready for north's bid</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "readyForBid",
+    "from": "N",
+    "seat": "N"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="readyForCard-msg">
+            <h3>readyForCard <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>readyForCard</var> := <var class="rule-name">seat</var> <span class="keyword">ready</span> <span class="keyword">for</span> <var class="rule-name">seat'</var> <span class="keyword">card</span> <span class="keyword">to</span> <span class="keyword">trick</span> <var class="rule-name">trickNumber</var>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span>
+<var>seat'</var> := <span class="keyword">north's</span> | <span class="keyword">south's</span> | <span class="keyword">east's</span> | <span class="keyword">west's</span>
+<var>trickNumber</var> := <span class="number">#</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>south ready for east's card to trick 548</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "readyForCard",
+    "trick": 548,
+    "player": "E",
+    "seat": "S"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="readyForCards-msg">
+            <h3>readyForCards <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>readyForCards</var> := <var class="rule-name">seat</var> <span class="keyword">ready</span> <span class="keyword">for</span> <span class="keyword">cards</span>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>north ready for cards</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "readyForCards",
+    "seat": "N"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="readyForDeal-msg">
+            <h3>readyForDeal <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>readyForDeal</var> := <var class="rule-name">seat</var> <span class="keyword">ready</span> <span class="keyword">for</span> <span class="keyword">deal</span>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>west ready for deal</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "readyForDeal",
+    "seat": "W"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="readyForDummy-msg">
+            <h3>readyForDummy <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>readyForDummy</var> := <var class="rule-name">seat</var> <span class="keyword">ready</span> <span class="keyword">for</span> <span class="keyword">dummy</span>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>west ready for dummy</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "readyForDummy",
+    "seat": "W"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="readyForTeams-msg">
+            <h3>readyForTeams <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>readyForTeams</var> := <var class="rule-name">seat</var> <span class="keyword">ready</span> <span class="keyword">for</span> <span class="keyword">teams</span>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>east ready for teams</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "readyForTeams",
+    "seat": "E"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="readyToStart-msg">
+            <h3>readyToStart <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>readyToStart</var> := <var class="rule-name">seat</var> <span class="keyword">to</span> <span class="keyword">start</span>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>west to start</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "readyToStart",
+    "seat": "W"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="seated-msg">
+            <h3>seated <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>seated</var> := <var class="rule-name">seat</var> <var class="rule-name">teamName</var> <span class="keyword">seated</span>
+<var>seat</var> := <span class="keyword">north</span> | <span class="keyword">south</span> | <span class="keyword">east</span> | <span class="keyword">west</span>
+<var>teamName</var> := <var class="string">quoted-string</var></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>north "..." seated</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "seated",
+    "teamName": "...",
+    "seat": "N"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="startOfBoard-msg">
+            <h3>startOfBoard <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>startOfBoard</var> := <span class="keyword">start</span> <span class="keyword">of</span> <span class="keyword">board</span></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>start of board</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "startOfBoard"
+}</code></code></div>
+        </div> <!-- message -->
+        
+        <div class="message" id="teams-msg">
+            <h3>teams <small>message</small></h3>
+            <hr/>
+            <p></p>
+            
+            <div><pre><code><var>teams</var> := <span class="keyword">teams</span> <span class="keyword">:</span> <span class="keyword">N/S</span> <span class="keyword">:</span> <var class="rule-name">teamName</var> <span class="keyword">E/W</span> <span class="keyword">:</span> <var class="rule-name">teamName</var>
+<var>teamName</var> := <var class="string">quoted-string</var></code></pre></div>
+
+            <h4>Example</h4>
+            <div><pre><code>teams : N/S : "..." E/W : "..."</code></pre></div>
+            <p>produces the AST</p>
+            <div><pre><code>{
+    "kind": "teams",
+    "EW": "...",
+    "NS": "..."
+}</code></code></div>
+        </div> <!-- message -->
+        
+    </div>
+
+    <div class="col-sm-3 col-sm-offset-1">
+        <h4>Messages</h4>
+        <ol class="list-unstyled">
+            
+            <li><a href="#bid-msg">bid</a></li>
+            
+            <li><a href="#cards-msg">cards</a></li>
+            
+            <li><a href="#connect-msg">connect</a></li>
+            
+            <li><a href="#deal-msg">deal</a></li>
+            
+            <li><a href="#dummyCards-msg">dummyCards</a></li>
+            
+            <li><a href="#dummyLead-msg">dummyLead</a></li>
+            
+            <li><a href="#endOfBoard-msg">endOfBoard</a></li>
+            
+            <li><a href="#endOfSession-msg">endOfSession</a></li>
+            
+            <li><a href="#illegalBid-msg">illegalBid</a></li>
+            
+            <li><a href="#lead-msg">lead</a></li>
+            
+            <li><a href="#play-msg">play</a></li>
+            
+            <li><a href="#readyForBid-msg">readyForBid</a></li>
+            
+            <li><a href="#readyForCard-msg">readyForCard</a></li>
+            
+            <li><a href="#readyForCards-msg">readyForCards</a></li>
+            
+            <li><a href="#readyForDeal-msg">readyForDeal</a></li>
+            
+            <li><a href="#readyForDummy-msg">readyForDummy</a></li>
+            
+            <li><a href="#readyForTeams-msg">readyForTeams</a></li>
+            
+            <li><a href="#readyToStart-msg">readyToStart</a></li>
+            
+            <li><a href="#seated-msg">seated</a></li>
+            
+            <li><a href="#startOfBoard-msg">startOfBoard</a></li>
+            
+            <li><a href="#teams-msg">teams</a></li>
+            
+        </ol>
+        <h4>Resources</h4>
+        <ol class="list-unstyled">
+            <li><a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge</a></li>
+            <li><a href="http://www.wbridge5.com/bm.htm">Bridge Moniteur</a></li>
+            <li><a href="https://bridge-robots.com/">Bridge Robots</a></li>
+            <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride<a></li>
+            <li><a href="https://github.com/richardschneider/table-master-parser">Message parser</a></li>
+            <li><a href='./parser.html'>Online parser</a></li>
+        </ol>
+    </div>
+    
+  </div> <!-- row --->    
+</div> <!-- container -->
+</body>
+</html>
