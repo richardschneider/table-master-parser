@@ -52,10 +52,10 @@ gulp.task('test-browser', ['dist'], function () {
         .pipe(mochaPhantomJS({reporter: 'min'}));
 });
 
-gulp.task('docs', function() {
+gulp.task('site', function() {
     require('./doc/make').run();    // dynamic documentation
     return gulp.src(paths.doc)      // static documentation
-        .pipe(gulp.dest('./dist/doc'));
+        .pipe(gulp.dest('./site/'));
 });
 
 gulp.task('dist-lib', function() {
@@ -95,6 +95,6 @@ gulp.task('coverage', function () {
 });
 
 gulp.task('test',    ['lint', 'istanbul']);
-gulp.task('dist',    ['docs', 'dist-lib', 'dist-test']);
+gulp.task('dist',    ['dist-lib', 'dist-test']);
 gulp.task('ci',      ['test', 'test-browser', 'dist']);
 gulp.task('default', ['test']);

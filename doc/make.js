@@ -7,7 +7,7 @@ let tm = require('../index'),
     mkdirp = require('mkdirp'),
     path = require('path'),
     dot = require('dot'),
-    home = './dist/doc';
+    home = './site';
 
 mkdirp.sync(home);
 
