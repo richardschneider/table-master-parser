@@ -23,7 +23,7 @@
   <div class="row">
 
     <div class="col-sm-8">
-        <h3>Online parser</h1>
+        <h3>Online parser</h3>
         <p >
         See the AST generated from a Blue Chip Bridge Table Manager Protocol <a href="index.html">message</a>.
         </p>
@@ -32,7 +32,7 @@
                 <input type="text" class="form-control" id="message" value="north bids 1NT" autocomplete="off">
                 <div class="input-group-btn"> 
                     <div class="btn-group">
-                        <button type=button class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-question-sign"></span>
                         </button> 
                         <ul class="dropdown-menu">
@@ -41,7 +41,7 @@
                             {{~}}
                         </ul>
                     </div>
-                    <button id="parse" type=button class="btn btn-default">Parse</button>
+                    <button id="parse" type="button" class="btn btn-default">Parse</button>
                 </div> 
             </div>
             <div id="error" class="alert alert-warning help-block hidden" role="alert">
@@ -60,8 +60,8 @@
         <ol class="list-unstyled">
             <li><a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge</a></li>
             <li><a href="https://bridge-robots.com/">Bridge Robots</a></li>
-            <li><a href="./index.html">Message documentation<a></li>
-            <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride<a></li>
+            <li><a href="./index.html">Message documentation</a></li>
+            <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride</a></li>
             <li><a href="https://github.com/richardschneider/table-master-parser">This package</a></li>
         </ol>
     </div>
@@ -78,7 +78,7 @@
     $(document).ready(function() {
         $('#parse').click(onParse);
         $('#message').keypress(function(e) {
-            if(e.which == 13) {
+            if(e.which === 13) {
                 e.preventDefault();
                 $('#parse').click();
             }

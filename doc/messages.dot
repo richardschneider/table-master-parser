@@ -43,7 +43,7 @@
         The <a href="https://github.com/richardschneider/table-master-parser">table-master-parser</a> 
         package parses these messages and produces an 
         <a href="https://en.wikipedia.org/wiki/Abstract_syntax_tree">Abstract Syntax Tree</a>.
-        Use the <a href='./parser.html'>online parser</a> to see the results of parsing a message.
+        Use the <a href="./parser.html">online parser</a> to see the results of parsing a message.
         </p>
         
         {{~it.messages :m:index}}
@@ -57,7 +57,7 @@
             <h4>Example</h4>
             <div><pre><code>{{=m.example}}</code></pre></div>
             <p>produces the AST</p>
-            <div><pre><code>{{=m.ast}}</code></code></div>
+            <div><pre><code>{{=m.ast}}</code></pre></div>
         </div> <!-- message -->
         {{~}}
     </div>
@@ -74,9 +74,9 @@
             <li><a href="http://www.bluechipbridge.co.uk/protocol.htm">Blue Chip Bridge</a></li>
             <li><a href="http://www.wbridge5.com/bm.htm">Bridge Moniteur</a></li>
             <li><a href="https://bridge-robots.com/">Bridge Robots</a></li>
-            <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride<a></li>
+            <li><a href="http://www.allevybridge.com/allevy/computerbridge/WCBC_coc.html">WBF computer bride</a></li>
             <li><a href="https://github.com/richardschneider/table-master-parser">Message parser</a></li>
-            <li><a href='./parser.html'>Online parser</a></li>
+            <li><a href="./parser.html">Online parser</a></li>
         </ol>
     </div>
     
