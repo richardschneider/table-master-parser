@@ -51,6 +51,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-spawn-mocha": "^3.1.0",
     "gulp-uglify": "^2.0.0",
+    "istanbul": "^0.4.5",
     "jshint": "^2.9.2",
     "jshint-stylish": "^2.2.0",
     "mkdirp": "^0.5.1",
@@ -72,8 +73,8 @@
       "script": "gulp site",
       "commit": "chore(site): publish $npm_package_version",
       "user": {
-          "email": "noreply@emanon.org",
-          "name": "CI Travis"
+        "email": "noreply@emanon.org",
+        "name": "CI Travis"
       }
     }
   },
